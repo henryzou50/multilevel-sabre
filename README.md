@@ -89,10 +89,13 @@ The `MultiLevelSabre` class accepts the following parameters:
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ```bibtex
-@inproceedings{2025MultilevelQuantum,
-  title={A High-Performance Multilevel Framework for Quantum Layout Synthesis},
-  author={Ping, Shuohao and Sathishkumar, Naren and Lin, Wan-Hsuan and Wang, Hanyu and Cong, Jason},
-  year={2025},
-  organization={Computer Science Department, University of California, Los Angeles, CA, USA}
+@misc{ping2025highperformancemultilevelframeworkquantum,
+      title={A High-Performance Multilevel Framework for Quantum Layout Synthesis}, 
+      author={Shuohao Ping and Naren Sathishkumar and Wan-Hsuan Lin and Hanyu Wang and Jason Cong},
+      year={2025},
+      eprint={2505.24169},
+      archivePrefix={arXiv},
+      primaryClass={quant-ph},
+      url={https://arxiv.org/abs/2505.24169}, 
 }
 ```

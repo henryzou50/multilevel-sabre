@@ -73,6 +73,7 @@ class MultiLevelSabre(TransformationPass):
         self.verbose = verbose
 
     def run(self, dag):
+        print("Starting MultiLevel SABRE optimization...")
         circuit = dag_to_circuit(dag)
 
         # multi_cycles returns (num_swaps, mapping, compiled_circuit)

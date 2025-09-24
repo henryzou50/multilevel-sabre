@@ -1,6 +1,8 @@
 from qiskit import QuantumCircuit
 from qiskit.transpiler import CouplingMap
 from qiskit.transpiler.passes import SabreLayout
+from qiskit.transpiler import PassManager
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 from qiskit.converters import circuit_to_dag, dag_to_circuit
 
 def read_qasm(file_name):
@@ -52,17 +54,20 @@ def sabre(circuit, coupling, number_of_trial, random_seed):
     """
     qc = circuit
     device = CouplingMap(couplinglist=coupling, description="sabre_test")
-    num_program_qubit = qc.num_qubits
-    num_classical_bits = qc.num_clbits
-    num_physical_qubit = max(max(i) for i in coupling) + 1
-    if num_physical_qubit > num_program_qubit:
-        temp_qc = QuantumCircuit(num_physical_qubit, num_classical_bits)
-        temp_qc.compose(qc, inplace=True)
-        qc = temp_qc
+    #num_program_qubit = qc.num_qubits
+    #num_classical_bits = qc.num_clbits
+    #num_physical_qubit = max(max(i) for i in coupling) + 1
+    #if num_physical_qubit > num_program_qubit:
+    #    temp_qc = QuantumCircuit(num_physical_qubit, num_classical_bits)
+    #    temp_qc.compose(qc, inplace=True)
+    #    qc = temp_qc
 
     sabre_layout = SabreLayout(coupling_map=device, seed=random_seed, layout_trials=number_of_trial, skip_routing=False)
-    out_dag = sabre_layout.run(circuit_to_dag(qc))
-    sabre_cir = dag_to_circuit(out_dag)
+    #out_dag = sabre_layout.run(circuit_to_dag(qc))
+    #sabre_cir = dag_to_circuit(out_dag)
+    pm = generate_preset_pass_manager(coupling_map=device, optimization_level=2, seed_transpiler=42)
+    pm.layout.replace(index=2, passes=sabre_layout)
+    sabre_cir = pm.run(qc)
 
     return count_swaps(sabre_cir), sabre_cir
 

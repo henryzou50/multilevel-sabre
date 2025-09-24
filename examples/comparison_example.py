@@ -7,6 +7,8 @@ import json
 import csv
 from pathlib import Path
 from typing import Dict, List, Iterable
+from qiskit_ibm_runtime.fake_provider.backends.sherbrooke import FakeSherbrooke
+fake_backend = FakeSherbrooke()
 
 from util import EAGLE_COUPLING, sabre, count_swaps
 
@@ -17,7 +19,8 @@ def run_comparison_example(qasm_path: Path) -> Dict:
     circuit = QuantumCircuit.from_qasm_file(str(qasm_path))
 
     # Create the EAGLE coupling map
-    coupling_map = CouplingMap(couplinglist=EAGLE_COUPLING)
+    coupling_map = fake_backend.coupling_map   
+    coupling_map.make_symmetric()
 
     # Run SABRE
     print(f"\n[{qasm_path.name}] Running SABRE...")

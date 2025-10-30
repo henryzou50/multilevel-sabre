@@ -62,11 +62,9 @@ def sabre(circuit, coupling, number_of_trial, random_seed):
     #    temp_qc.compose(qc, inplace=True)
     #    qc = temp_qc
 
-    sabre_layout = SabreLayout(coupling_map=device, seed=random_seed, layout_trials=number_of_trial, skip_routing=False)
     #out_dag = sabre_layout.run(circuit_to_dag(qc))
     #sabre_cir = dag_to_circuit(out_dag)
     pm = generate_preset_pass_manager(coupling_map=device, optimization_level=2, seed_transpiler=42)
-    pm.layout.replace(index=2, passes=sabre_layout)
     sabre_cir = pm.run(qc)
 
     return count_swaps(sabre_cir), sabre_cir

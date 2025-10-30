@@ -35,13 +35,12 @@ def multilevel_cycle_sabre(
     """
     start_time = time.time()
     random.seed(random_seed)
-    print("seed:", random_seed)
     
     # Initialize current level variables
     current_coupling = coupling_graph
     current_circuit = circuit
     current_mapping = initial_mapping
-
+    print(current_mapping)
     # Run initial SABRE pass
     num_swaps, current_mapping, compiled_circuit = sabre(
         current_circuit, 
@@ -51,8 +50,6 @@ def multilevel_cycle_sabre(
         [current_mapping]
     )
     best_result = (num_swaps, current_mapping, compiled_circuit)
-    print("Initial mapping quality:", num_swaps)
-    print("Initial mapping:", current_mapping)
 
     if num_swaps == 0:
         return best_result, best_result

@@ -38,7 +38,6 @@ def sabre(circuit, coupling, number_of_trial, random_seed, initial_layout_list=N
     num_classical_bits=qc.num_clbits
     num_physical_qubit=max(max(i) for i in coupling)+1
     if num_physical_qubit>num_program_qubit:
-        print("Add idle qubits")
         temp_qc=QuantumCircuit(num_physical_qubit,num_classical_bits)
         temp_qc.compose(qc,inplace=True)
         qc=temp_qc

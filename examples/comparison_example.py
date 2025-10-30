@@ -33,7 +33,6 @@ def run_comparison_example(qasm_path: Path) -> Dict:
     sabre_swaps, sabre_circuit = sabre(
         circuit=circuit,
         coupling=EAGLE_COUPLING,
-        number_of_trial=2500, 
         random_seed=1
     )
     sabre_time = time.time() - start_time

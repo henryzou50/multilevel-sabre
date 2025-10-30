@@ -1,6 +1,7 @@
 from qiskit import QuantumCircuit
 from qiskit.transpiler import CouplingMap
 from qiskit.transpiler.passes import SabreLayout
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 from qiskit.converters import circuit_to_dag, dag_to_circuit
 
 def read_qasm(file_name):
@@ -38,7 +39,7 @@ def count_swaps(circuit):
     """
     return sum(1 for instruction in circuit.data if instruction.operation.name == 'swap')
 
-def sabre(circuit, coupling, number_of_trial, random_seed):
+def sabre(circuit, coupling, random_seed):
     """Run SABRE algorithm on a circuit.
     
     Args:
@@ -50,19 +51,24 @@ def sabre(circuit, coupling, number_of_trial, random_seed):
     Returns:
         tuple: (number of SWAPs, optimized circuit)
     """
-    qc = circuit
-    device = CouplingMap(couplinglist=coupling, description="sabre_test")
-    num_program_qubit = qc.num_qubits
-    num_classical_bits = qc.num_clbits
-    num_physical_qubit = max(max(i) for i in coupling) + 1
-    if num_physical_qubit > num_program_qubit:
-        temp_qc = QuantumCircuit(num_physical_qubit, num_classical_bits)
-        temp_qc.compose(qc, inplace=True)
-        qc = temp_qc
+    qc=circuit
+    device = CouplingMap(couplinglist=coupling)
+    device.make_symmetric()
 
-    sabre_layout = SabreLayout(coupling_map=device, seed=random_seed, layout_trials=number_of_trial, skip_routing=False)
-    out_dag = sabre_layout.run(circuit_to_dag(qc))
-    sabre_cir = dag_to_circuit(out_dag)
+    # Prepare circuit with enough qubits
+    num_program_qubit=qc.num_qubits
+    num_classical_bits=qc.num_clbits
+    num_physical_qubit=max(max(i) for i in coupling)+1
+    if num_physical_qubit>num_program_qubit:
+        temp_qc=QuantumCircuit(num_physical_qubit,num_classical_bits)
+        temp_qc.compose(qc,inplace=True)
+        qc=temp_qc
+
+    # Set up PassManager
+    pm = generate_preset_pass_manager(optimization_level=3, coupling_map=device, seed_transpiler=random_seed)
+
+    # Transpile Circuit
+    sabre_cir = pm.run(qc)
 
     return count_swaps(sabre_cir), sabre_cir
 

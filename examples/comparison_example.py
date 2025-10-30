@@ -1,14 +1,14 @@
-from qiskit import QuantumCircuit
-from qiskit.transpiler import CouplingMap, PassManager
-from multilevel_sabre import MultiLevelSabre
 import time
 import argparse
 import json
 import csv
+
+from qiskit import QuantumCircuit
+from qiskit.transpiler import CouplingMap, PassManager
 from pathlib import Path
 from typing import Dict, List, Iterable
-
-from util import EAGLE_COUPLING, sabre, count_swaps
+from util import EAGLE_COUPLING, sabre, count_swaps 
+from multilevel_sabre import MultiLevelSabre
 
 def run_comparison_example(qasm_path: Path) -> Dict:
     """ Run a comparison between SABRE and MultiLevel SABRE on a given QASM circuit.

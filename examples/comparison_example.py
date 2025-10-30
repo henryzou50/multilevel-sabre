@@ -8,7 +8,7 @@ from qiskit.transpiler import CouplingMap, PassManager
 from pathlib import Path
 from typing import Dict, List, Iterable
 from util import EAGLE_COUPLING, sabre, count_swaps 
-from multilevel_sabre import MultiLevelSabre
+from multilevel_sabre import MultiLevelSabre # type: ignore
 
 def run_comparison_example(qasm_path: Path) -> Dict:
     """ Run a comparison between SABRE and MultiLevel SABRE on a given QASM circuit.
@@ -113,8 +113,9 @@ def gather_qasm_files(paths: Iterable[str]) -> List[Path]:
             print(f"Skipping {p}: not a .qasm file or directory.")
     return sorted(set(result))
 
-def write_csv(rows: List[Dict], out_csv: Path) -> None:
-    if not rows:
+def write_csv(data: List[Dict], out_csv: Path) -> None:
+    """Converts the rows to a .csv file and saves it"""
+    if not data:
         print("No rows to write.")
         return
     fieldnames = [
@@ -128,7 +129,7 @@ def write_csv(rows: List[Dict], out_csv: Path) -> None:
     with out_csv.open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
-        for r in rows:
+        for r in data:
             writer.writerow({k: r.get(k, "") for k in fieldnames})
     print(f"\nWrote CSV: {out_csv}")
 
@@ -155,12 +156,13 @@ if __name__ == "__main__":
 
     rows = []
     for q in qasm_files:
-        try:
-            rows.append(run_comparison_example(q))
-        except Exception as e:
-            # Keep going; record the error in the CSV
-            print(f"[{q.name}] ERROR: {e}")
-            rows.append({"qasm_file": str(q), "error": repr(e)})
+        rows.append(run_comparison_example(q))
+        #try:
+        #    rows.append(run_comparison_example(q))
+        #except Exception as e:
+        #    # Keep going; record the error in the CSV
+        #    print(f"[{q.name}] ERROR: {e}")
+        #    rows.append({"qasm_file": str(q), "error": repr(e)})
 
     if args.csv:
         write_csv(rows, Path(args.csv))

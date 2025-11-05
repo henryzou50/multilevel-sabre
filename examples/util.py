@@ -67,7 +67,7 @@ def sabre(circuit, coupling, random_seed):
 
     # Set up PassManager
     pm = generate_preset_pass_manager(optimization_level=3, coupling_map=device, seed_transpiler=random_seed)
-    vf2_layout = VF2Layout(coupling_map=device, seed=random_seed)
+    vf2_layout = VF2Layout(coupling_map=device, seed=random_seed, max_trials=-1)
     pm.layout.replace(1, vf2_layout)
 
     # Transpile Circuit

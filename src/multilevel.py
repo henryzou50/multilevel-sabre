@@ -49,6 +49,7 @@ def multilevel_cycle_sabre(
         random_seed, 
         [current_mapping]
     )
+    print(current_mapping)
     best_result = (num_swaps, current_mapping, compiled_circuit)
     if verbose:
         print("Initial mapping quality:", num_swaps)

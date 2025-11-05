@@ -3,6 +3,7 @@ from qiskit.transpiler import CouplingMap
 from qiskit.transpiler.passes import SabreLayout
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 from qiskit.converters import circuit_to_dag, dag_to_circuit
+from qiskit.transpiler.passes import VF2Layout
 
 def read_qasm(file_name):
     qc = QuantumCircuit.from_qasm_file(file_name)
@@ -66,6 +67,8 @@ def sabre(circuit, coupling, random_seed):
 
     # Set up PassManager
     pm = generate_preset_pass_manager(optimization_level=3, coupling_map=device, seed_transpiler=random_seed)
+    vf2_layout = VF2Layout(coupling_map=device, seed=random_seed)
+    pm.layout.replace(1, vf2_layout)
 
     # Transpile Circuit
     sabre_cir = pm.run(qc)

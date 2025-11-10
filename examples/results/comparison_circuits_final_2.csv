@@ -1,0 +1,4 @@
+qasm_file,sabre_swaps,sabre_time_s,sabre_depth,sabre_2q_depth,sabre_size,sabre_ops_json,multilevel_swaps,multilevel_time_s,multilevel_depth,multilevel_2q_depth,multilevel_size,multilevel_ops_json,speedup,swap_reduction_pct,error
+circuits_no_swaps_final/ghz_n78.qasm,0,0.1153,79,77,156,"{""measure"": 78, ""cx"": 77, ""u"": 1, ""barrier"": 1}",0,0.0577,79,77,156,"{""measure"": 78, ""cx"": 77, ""u"": 1, ""barrier"": 1}",1.9983,0.0,
+circuits_no_swaps_final/ising_n98.qasm,0,0.3446,9,4,583,"{""cx"": 194, ""u"": 145, ""u2"": 98, ""measure"": 98, ""u1"": 48, ""barrier"": 1}",0,0.0672,16,4,1170,"{""u"": 878, ""cx"": 194, ""measure"": 98, ""barrier"": 1}",5.128,0.0,
+circuits_no_swaps_final/cat_n65.qasm,0,0.107,66,64,130,"{""measure"": 65, ""cx"": 64, ""u"": 1, ""barrier"": 1}",0,0.1062,66,64,130,"{""measure"": 65, ""cx"": 64, ""u"": 1, ""barrier"": 1}",1.0075,0.0,

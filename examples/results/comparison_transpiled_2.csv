@@ -1,0 +1,4 @@
+qasm_file,sabre_swaps,sabre_time_s,sabre_depth,sabre_2q_depth,sabre_size,sabre_ops_json,multilevel_swaps,multilevel_time_s,multilevel_depth,multilevel_2q_depth,multilevel_size,multilevel_ops_json,speedup,swap_reduction_pct,error
+circuits_transpiled_no_swaps/ghz_n78.qasm,0,0.081,79,77,156,"{""measure"": 78, ""cx"": 77, ""u2"": 1, ""barrier"": 1}",0,0.0671,81,77,158,"{""measure"": 78, ""cx"": 77, ""rz"": 2, ""sx"": 1, ""barrier"": 1}",1.2072,0.0,
+circuits_transpiled_no_swaps/ising_n98.qasm,0,0.371,9,4,535,"{""cx"": 194, ""rz"": 145, ""u2"": 98, ""measure"": 98, ""barrier"": 1}",0,0.0621,11,4,779,"{""rz"": 389, ""cx"": 194, ""sx"": 98, ""measure"": 98, ""barrier"": 1}",5.9742,0.0,
+circuits_transpiled_no_swaps/cat_n65.qasm,0,0.0662,66,64,130,"{""measure"": 65, ""cx"": 64, ""u2"": 1, ""barrier"": 1}",0,0.1042,68,64,132,"{""measure"": 65, ""cx"": 64, ""rz"": 2, ""sx"": 1, ""barrier"": 1}",0.6353,0.0,
